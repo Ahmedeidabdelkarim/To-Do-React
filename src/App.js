@@ -1,9 +1,8 @@
 import "./App.css";
 import TodolList from "./components/TodolList";
-import { TodosContext } from "./contexts/todosContext";
-import { v4 as uuidv4 } from 'uuid';
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import { useState } from "react";
+import { ToastProvider } from "./contexts/ToastContext";
+import TodosProvider from "./contexts/todosContext";
 const theme = createTheme({
   topography: {
     fontFamily: ["Alexandria"],
@@ -20,34 +19,32 @@ const theme = createTheme({
       default: "#191b1f",
     },
     
-} */});
-
-const intialTodos = [
-  { id: uuidv4(), title: "قراة الكتاب", details: "####", isCompleted: false },
-  { id: uuidv4(), title: "قراة الكتاب", details: "####", isCompleted: false },
-  { id: uuidv4(), title: "قراة الكتاب", details: "####", isCompleted: false }
-];
+} */
+});
 
 function App() {
-  const [todos,setTodos]=useState(intialTodos);
-  return (
 
+  return (
     <ThemeProvider theme={theme}>
-      <div
-        className="App"
-        style={{
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          background: "#191b1f",
-          direction: "rtl",
-          height: "100vh",
-        }}
-      >
-        <TodosContext.Provider value={{todos,setTodos}}>
-          <TodolList />
-        </TodosContext.Provider>
-      </div>
+      <TodosProvider>
+        <ToastProvider>
+          <div
+            className="App"
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              background: "#191b1f",
+              direction: "rtl",
+              height: "100vh",
+            }}
+          >
+            
+              <TodolList />
+            
+          </div>
+        </ToastProvider>
+      </TodosProvider>
     </ThemeProvider>
   );
 }
